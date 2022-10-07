@@ -29,6 +29,7 @@ impl<'a> Interpreter<'a> {
         self.commands.insert("*".to_owned(), &operators::mul);
         self.commands.insert("/".to_owned(), &operators::div);
         self.commands.insert("mod".to_owned(), &operators::modulus);
+        self.commands.insert("negate".to_owned(), &operators::negate);
 
         self.commands.insert("dup".to_owned(), &operators::dup);
         self.commands.insert("swap".to_owned(), &operators::swap);

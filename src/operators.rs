@@ -49,3 +49,9 @@ pub fn swap(forth: &mut Forth) -> ForthResult<()> {
     forth.push(b);
     Ok(())
 }
+
+pub fn negate(forth: &mut Forth) -> ForthResult<()> {
+    let a = forth.pop("Empty stack for negate".to_string())?;
+    forth.push(-a);
+    Ok(())
+}

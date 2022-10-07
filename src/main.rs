@@ -109,6 +109,16 @@ mod tests {
     }
 
     #[test]
+    fn test_negate() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(-99);
+        intr.eval(&mut forth, "99 negate");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
     fn test_multiple_commands() {
         let mut forth = forth::Forth::empty();
         let intr = interpreter::Interpreter::new();
