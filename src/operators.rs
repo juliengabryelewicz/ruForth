@@ -34,3 +34,18 @@ pub fn div(forth: &mut Forth) -> ForthResult<()> {
 pub fn modulus(forth: &mut Forth) -> ForthResult<()> {
     arithmetic_operator("mod", |x, y| y % x, forth)
 }
+
+pub fn dup(forth: &mut Forth) -> ForthResult<()> {
+    let a = forth.pop("Empty stack for dup".to_string())?;
+    forth.push(a);
+    forth.push(a);
+    Ok(())
+}
+
+pub fn swap(forth: &mut Forth) -> ForthResult<()> {
+    let a = forth.pop("Empty stack for first element in swap".to_string())?;
+    let b = forth.pop("Empty stack for second element in swap".to_string())?;
+    forth.push(a);
+    forth.push(b);
+    Ok(())
+}
