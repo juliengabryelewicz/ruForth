@@ -35,6 +35,18 @@ pub fn modulus(forth: &mut Forth) -> ForthResult<()> {
     arithmetic_operator("mod", |x, y| y % x, forth)
 }
 
+pub fn negate(forth: &mut Forth) -> ForthResult<()> {
+    let a = forth.pop("Empty stack for negate".to_string())?;
+    forth.push(-a);
+    Ok(())
+}
+
+pub fn abs(forth: &mut Forth) -> ForthResult<()> {
+    let a = forth.pop("Empty stack for abs".to_string())?;
+    forth.push(a.abs());
+    Ok(())
+}
+
 pub fn dup(forth: &mut Forth) -> ForthResult<()> {
     let a = forth.pop("Empty stack for dup".to_string())?;
     forth.push(a);
@@ -47,11 +59,5 @@ pub fn swap(forth: &mut Forth) -> ForthResult<()> {
     let b = forth.pop("Empty stack for second element in swap".to_string())?;
     forth.push(a);
     forth.push(b);
-    Ok(())
-}
-
-pub fn negate(forth: &mut Forth) -> ForthResult<()> {
-    let a = forth.pop("Empty stack for negate".to_string())?;
-    forth.push(-a);
     Ok(())
 }

@@ -119,6 +119,26 @@ mod tests {
     }
 
     #[test]
+    fn test_abs_negative() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(99);
+        intr.eval(&mut forth, "-99 abs");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
+    fn test_abs_positive() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(99);
+        intr.eval(&mut forth, "99 abs");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
     fn test_multiple_commands() {
         let mut forth = forth::Forth::empty();
         let intr = interpreter::Interpreter::new();
