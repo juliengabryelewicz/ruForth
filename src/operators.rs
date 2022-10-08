@@ -1,3 +1,4 @@
+use std::cmp;
 use crate::forth::{Forth, ForthResult};
 
 type ArOperator = fn(i32, i32) -> i32;
@@ -81,5 +82,12 @@ pub fn nip(forth: &mut Forth) -> ForthResult<()> {
     let a = forth.pop("Empty stack for first element in nip".to_string())?;
     forth.pop("Empty stack for second element in nip".to_string())?;
     forth.push(a);
+    Ok(())
+}
+
+pub fn max(forth: &mut Forth) -> ForthResult<()> {
+    let a = forth.pop("Empty stack for first element in max".to_string())?;
+    let b = forth.pop("Empty stack for second element in max".to_string())?;
+    forth.push(cmp::max(a, b));
     Ok(())
 }
