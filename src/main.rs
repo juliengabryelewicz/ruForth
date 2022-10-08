@@ -24,6 +24,7 @@ fn start_ruforth() {
             return;
         } else {
             intr.eval(&mut forth, &input_user);
+            println!("ok");
         }
     }
 }
@@ -188,6 +189,17 @@ mod tests {
         let mut vec = Vec::new();
         vec.push(1);
         intr.eval(&mut forth, "1 3 min");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
+    fn test_add_word() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(25);
+        intr.eval(&mut forth, ": square dup * ;");
+        intr.eval(&mut forth, "5 square");
         assert_eq!(vec, forth.get_stack());
     }
 

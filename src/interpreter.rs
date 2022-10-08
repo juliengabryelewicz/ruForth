@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use std::slice::Iter;
 
-use crate::forth::{Forth, ForthResult, Operators};
+use crate::forth::{Forth, ForthResult, ForthWord, Operators};
 use crate::operators;
 
 pub struct Interpreter<'a> {
@@ -50,10 +50,53 @@ impl<'a> Interpreter<'a> {
         }
     }
 
+    fn eval_word(&self, name: &str, forth: &mut Forth) -> Option<ForthResult<()>> {
+        match forth.get_word(name) {
+            Some(ref word) => {
+                self.eval_tokens(forth, &mut word.1.iter());
+                Some(Ok(()))
+            }
+            None => None,
+        }
+    }
+
     pub fn eval_tokens(&self, forth: &mut Forth, tokens: &mut Iter<String>) {
         while let Some(s) = tokens.next() {
             if s.trim().is_empty() {
                 continue;
+            }
+
+            // new word to collect
+            if s.trim() == ":" {
+                match self.check_new_word(tokens) {
+                    Ok(word) => {
+                        println!("New word defined: {:?}", word);
+                        let name = word.0.clone();
+                        forth.add_word(&name, word);
+                        continue;
+                    }
+                    Err(e) => {
+                        println!("Error: {}", e);
+                        break;
+                    }
+                }
+            }
+
+            // Print stack
+            if s.trim() == "." {
+                print!("> ");
+                forth.print_stack();
+                continue;
+            }
+
+            // Check for new word created
+            match self.eval_word(s, forth) {
+                None => (),
+                Some(Ok(())) => continue,
+                Some(Err(e)) => {
+                    println!("Error: {}", e);
+                    break;
+                }
             }
 
             //Check for default commands
@@ -75,8 +118,28 @@ impl<'a> Interpreter<'a> {
                 }
             }
         }
-
-        print!("> ");
-        forth.print_stack();
     }
+
+
+    fn check_new_word(&self, tokens: &mut Iter<String>) -> ForthResult<ForthWord> {
+        if let Some(name) = tokens.next() {
+            if !Self::valid_word_name(name) {
+                return Err(format!("Invalid name for function: {}", name));
+            }
+            let mut definition: Vec<String> = vec![];
+            for s in tokens {
+                if s == ";" {
+                    return Ok((name.to_string(), definition));
+                } else {
+                    definition.push(s.to_string());
+                }
+            }
+        }
+        Err("Invalid function".to_string())
+    }
+
+    fn valid_word_name(name: &str) -> bool {
+        name.parse::<i32>().is_err()
+    }
+    
 }
