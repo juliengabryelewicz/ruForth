@@ -61,3 +61,13 @@ pub fn swap(forth: &mut Forth) -> ForthResult<()> {
     forth.push(b);
     Ok(())
 }
+
+pub fn rot(forth: &mut Forth) -> ForthResult<()> {
+    let a = forth.pop("Empty stack for first element in rot".to_string())?;
+    let b = forth.pop("Empty stack for second element in rot".to_string())?;
+    let c = forth.pop("Empty stack for third element in rot".to_string())?;
+    forth.push(b);
+    forth.push(a);
+    forth.push(c);
+    Ok(())
+}

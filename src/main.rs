@@ -139,6 +139,18 @@ mod tests {
     }
 
     #[test]
+    fn test_rot() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(4);
+        vec.push(5);
+        vec.push(6);
+        intr.eval(&mut forth, "6 4 5 rot");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
     fn test_multiple_commands() {
         let mut forth = forth::Forth::empty();
         let intr = interpreter::Interpreter::new();
