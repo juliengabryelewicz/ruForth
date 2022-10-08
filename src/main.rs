@@ -151,6 +151,16 @@ mod tests {
     }
 
     #[test]
+    fn test_drop() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(2);
+        intr.eval(&mut forth, "2 3 drop");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
     fn test_multiple_commands() {
         let mut forth = forth::Forth::empty();
         let intr = interpreter::Interpreter::new();

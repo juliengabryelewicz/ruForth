@@ -35,6 +35,7 @@ impl<'a> Interpreter<'a> {
         self.commands.insert("dup".to_owned(), &operators::dup);
         self.commands.insert("swap".to_owned(), &operators::swap);
         self.commands.insert("rot".to_owned(), &operators::rot);
+        self.commands.insert("drop".to_owned(), &operators::drop);
     }
 
     fn eval_commands(&self, op: &str, forth: &mut Forth) -> Option<ForthResult<()>> {

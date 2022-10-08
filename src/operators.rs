@@ -71,3 +71,8 @@ pub fn rot(forth: &mut Forth) -> ForthResult<()> {
     forth.push(c);
     Ok(())
 }
+
+pub fn drop(forth: &mut Forth) -> ForthResult<()> {
+    forth.pop("Empty stack for drop".to_string())?;
+    Ok(())
+}
