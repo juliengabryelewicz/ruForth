@@ -89,6 +89,20 @@ impl<'a> Interpreter<'a> {
                 continue;
             }
 
+            //write string
+            if s.trim() == ".\"" {
+                match self.check_string(tokens) {
+                    Ok(sentence) => {
+                        println!("{}", sentence);
+                        continue
+                    }
+                    Err(e) => {
+                        println!("Error: {}", e);
+                        break;
+                    }
+                }
+            }
+
             // Check for new word created
             match self.eval_word(s, forth) {
                 None => (),
@@ -136,6 +150,24 @@ impl<'a> Interpreter<'a> {
             }
         }
         Err("Invalid function".to_string())
+    }
+
+    fn check_string(&self, tokens: &mut Iter<String>) -> ForthResult<String> {
+        let mut sentence = String::new();
+        for s in tokens {
+            if s == "\"" {
+                return Ok(sentence);
+            }
+            if s.chars().last().unwrap() == '"' {
+                let mut temp = s.clone();
+                temp.pop();
+                sentence.push_str(&temp.clone());
+                return Ok(sentence);
+            }
+            sentence.push_str(&format!("{} ", s));
+        }
+
+        Err("Invalid string".to_string())
     }
 
     fn valid_word_name(name: &str) -> bool {
