@@ -32,6 +32,7 @@ impl<'a> Interpreter<'a> {
         self.commands.insert("negate".to_owned(), &operators::negate);
         self.commands.insert("abs".to_owned(), &operators::abs);
         self.commands.insert("max".to_owned(), &operators::max);
+        self.commands.insert("min".to_owned(), &operators::min);
 
         self.commands.insert("dup".to_owned(), &operators::dup);
         self.commands.insert("swap".to_owned(), &operators::swap);

@@ -91,3 +91,10 @@ pub fn max(forth: &mut Forth) -> ForthResult<()> {
     forth.push(cmp::max(a, b));
     Ok(())
 }
+
+pub fn min(forth: &mut Forth) -> ForthResult<()> {
+    let a = forth.pop("Empty stack for first element in min".to_string())?;
+    let b = forth.pop("Empty stack for second element in min".to_string())?;
+    forth.push(cmp::min(a, b));
+    Ok(())
+}
