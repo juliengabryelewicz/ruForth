@@ -76,3 +76,10 @@ pub fn drop(forth: &mut Forth) -> ForthResult<()> {
     forth.pop("Empty stack for drop".to_string())?;
     Ok(())
 }
+
+pub fn nip(forth: &mut Forth) -> ForthResult<()> {
+    let a = forth.pop("Empty stack for first element in nip".to_string())?;
+    forth.pop("Empty stack for second element in nip".to_string())?;
+    forth.push(a);
+    Ok(())
+}

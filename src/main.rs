@@ -161,6 +161,17 @@ mod tests {
     }
 
     #[test]
+    fn test_nip() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(1);
+        vec.push(3);
+        intr.eval(&mut forth, "1 2 3 nip");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
     fn test_multiple_commands() {
         let mut forth = forth::Forth::empty();
         let intr = interpreter::Interpreter::new();
