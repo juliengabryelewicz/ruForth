@@ -39,6 +39,8 @@ impl<'a> Interpreter<'a> {
         self.commands.insert("rot".to_owned(), &operators::rot);
         self.commands.insert("drop".to_owned(), &operators::drop);
         self.commands.insert("nip".to_owned(), &operators::nip);
+
+        self.commands.insert("clearstack".to_owned(), &operators::clearstack);
     }
 
     fn eval_commands(&self, op: &str, forth: &mut Forth) -> Option<ForthResult<()>> {

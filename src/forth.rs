@@ -29,6 +29,10 @@ impl Forth {
         self.stack.push(val);
     }
 
+    pub fn clear(&mut self) {
+        self.stack.clear();
+    }
+
     pub fn print_stack(&self) {
         println!("{:?}", self.stack);
     }

@@ -98,3 +98,8 @@ pub fn min(forth: &mut Forth) -> ForthResult<()> {
     forth.push(cmp::min(a, b));
     Ok(())
 }
+
+pub fn clearstack(forth: &mut Forth) -> ForthResult<()> {
+    forth.clear();
+    Ok(())
+}

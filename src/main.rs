@@ -193,6 +193,15 @@ mod tests {
     }
 
     #[test]
+    fn test_clearstack() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let vec : Vec<i32> = Vec::new();
+        intr.eval(&mut forth, "1 3 4 + clearstack");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
     fn test_add_word() {
         let mut forth = forth::Forth::empty();
         let intr = interpreter::Interpreter::new();
