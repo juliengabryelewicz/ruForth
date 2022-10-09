@@ -40,6 +40,7 @@ impl<'a> Interpreter<'a> {
         self.commands.insert("drop".to_owned(), &operators::drop);
         self.commands.insert("nip".to_owned(), &operators::nip);
         self.commands.insert("tuck".to_owned(), &operators::tuck);
+        self.commands.insert("over".to_owned(), &operators::over);
 
         self.commands.insert("cr".to_owned(), &operators::cr);
         self.commands.insert("clearstack".to_owned(), &operators::clearstack);

@@ -94,6 +94,15 @@ pub fn tuck(forth: &mut Forth) -> ForthResult<()> {
     Ok(())
 }
 
+pub fn over(forth: &mut Forth) -> ForthResult<()> {
+    let a = forth.pop("Empty stack for first element in swap".to_string())?;
+    let b = forth.pop("Empty stack for second element in swap".to_string())?;
+    forth.push(b);
+    forth.push(a);
+    forth.push(b);
+    Ok(())
+}
+
 pub fn max(forth: &mut Forth) -> ForthResult<()> {
     let a = forth.pop("Empty stack for first element in max".to_string())?;
     let b = forth.pop("Empty stack for second element in max".to_string())?;
