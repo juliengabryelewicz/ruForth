@@ -213,6 +213,28 @@ mod tests {
     }
 
     #[test]
+    fn test_add_constant() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(100);
+        intr.eval(&mut forth, "100 constant HUNDRED");
+        intr.eval(&mut forth, "HUNDRED");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
+    fn test_use_constant() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(125);
+        intr.eval(&mut forth, "100 constant HUNDRED");
+        intr.eval(&mut forth, "HUNDRED 25 +");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
     fn test_multiple_commands() {
         let mut forth = forth::Forth::empty();
         let intr = interpreter::Interpreter::new();

@@ -62,6 +62,15 @@ impl<'a> Interpreter<'a> {
         }
     }
 
+    fn eval_constants(&self, name: &str, forth: &mut Forth) -> Option<ForthResult<()>> {
+        if let Some(a) = forth.get_constant(&name) {
+            forth.push(a);
+            Some(Ok(()))
+        } else {
+            None
+        }
+    }
+
     pub fn eval_tokens(&self, forth: &mut Forth, tokens: &mut Iter<String>) {
         while let Some(s) = tokens.next() {
             if s.trim().is_empty() {
@@ -106,6 +115,19 @@ impl<'a> Interpreter<'a> {
                 continue;
             }
 
+            // Create constant
+            if s.trim() == "constant" {
+                match self.create_constant(forth, tokens) {
+                    Ok(_) => {
+                        continue;
+                    }
+                    Err(e) => {
+                        println!("Error: {}", e);
+                        break;
+                    }
+                }
+            }
+
             //write string
             if s.trim() == ".\"" {
                 match self.check_string(tokens) {
@@ -132,6 +154,16 @@ impl<'a> Interpreter<'a> {
 
             //Check for default commands
             match self.eval_commands(s, forth) {
+                None => (),
+                Some(Ok(())) => continue,
+                Some(Err(e)) => {
+                    println!("Error: {}", e);
+                    break;
+                }
+            }
+
+            //Check for constants
+            match self.eval_constants(s, forth) {
                 None => (),
                 Some(Ok(())) => continue,
                 Some(Err(e)) => {
@@ -185,6 +217,16 @@ impl<'a> Interpreter<'a> {
         }
 
         Err("Invalid string".to_string())
+    }
+
+    fn create_constant(&self, forth: &mut Forth, tokens: &mut Iter<String>) -> ForthResult<()> {
+        if let Some(const_name) = tokens.next() {
+            let a = forth.pop(format!("Stack empty to set constant {}", const_name))?;
+            forth.add_constant(const_name, a);
+            Ok(())
+        } else {
+            Err("Const name not found".to_string())
+        }
     }
 
     fn valid_word_name(name: &str) -> bool {

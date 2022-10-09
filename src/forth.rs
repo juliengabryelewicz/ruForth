@@ -7,14 +7,16 @@ pub type Operators = dyn Fn(&mut Forth) -> ForthResult<()>;
 
 pub struct Forth {
     stack: Vec<i32>,
-    words: HashMap<String, ForthWord>
+    words: HashMap<String, ForthWord>,
+    constants: HashMap<String, i32>
 }
 
 impl Forth {
     pub fn empty() -> Forth {
         Forth {
             stack: vec![],
-            words: HashMap::new()
+            words: HashMap::new(),
+            constants: HashMap::new(),
         }
     }
 
@@ -50,6 +52,14 @@ impl Forth {
             Some(word) => Some(word.clone()),
             None => None,
         }
+    }
+
+    pub fn add_constant(&mut self, name: &str, value: i32) -> Option<i32> {
+        self.constants.insert(name.to_string(), value)
+    }
+
+    pub fn get_constant(&self, name: &str) -> Option<i32> {
+        self.constants.get(name).cloned()
     }
 
     pub fn get_words(&self) -> HashMap<String, ForthWord> {
