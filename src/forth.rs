@@ -52,4 +52,8 @@ impl Forth {
         }
     }
 
+    pub fn get_words(&self) -> HashMap<String, ForthWord> {
+        self.words.clone()
+    }
+
 }

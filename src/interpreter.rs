@@ -91,6 +91,21 @@ impl<'a> Interpreter<'a> {
                 continue;
             }
 
+            // Print all words available
+            if s.trim() == "words" {
+
+                for command in &self.commands {
+                    let name = command.0.clone();
+                    print!("{} ", name);
+                }
+
+                for word in forth.get_words() {
+                    let name = word.0.clone();
+                    print!("{} ", name);
+                }
+                continue;
+            }
+
             //write string
             if s.trim() == ".\"" {
                 match self.check_string(tokens) {
