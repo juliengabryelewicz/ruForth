@@ -108,6 +108,11 @@ pub fn min(forth: &mut Forth) -> ForthResult<()> {
     Ok(())
 }
 
+pub fn cr(_: &mut Forth) -> ForthResult<()> {
+    println!();
+    Ok(())
+}
+
 pub fn clearstack(forth: &mut Forth) -> ForthResult<()> {
     forth.clear();
     Ok(())
