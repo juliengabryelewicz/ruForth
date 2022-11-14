@@ -1,6 +1,7 @@
 mod forth;
 mod interpreter;
 mod operators;
+mod operators_binary;
 
 use std::io::{self, BufRead};
 
@@ -278,6 +279,46 @@ mod tests {
         let intr = interpreter::Interpreter::new();
         let vec : Vec<i32> = Vec::new();
         intr.eval(&mut forth, "2 +");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
+    fn test_equals_1() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(-1);
+        intr.eval(&mut forth, "2 2 =");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
+    fn test_equals_2() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(0);
+        intr.eval(&mut forth, "2 3 =");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
+    fn test_not_equals_1() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(-1);
+        intr.eval(&mut forth, "2 3 !=");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
+    fn test_not_equals_2() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(0);
+        intr.eval(&mut forth, "2 2 !=");
         assert_eq!(vec, forth.get_stack());
     }
 

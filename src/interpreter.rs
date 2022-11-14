@@ -3,6 +3,7 @@ use std::slice::Iter;
 
 use crate::forth::{Forth, ForthResult, ForthWord, Operators};
 use crate::operators;
+use crate::operators_binary;
 
 pub struct Interpreter<'a> {
     pub commands: HashMap<String, &'a Operators>,
@@ -44,6 +45,10 @@ impl<'a> Interpreter<'a> {
 
         self.commands.insert("cr".to_owned(), &operators::cr);
         self.commands.insert("clearstack".to_owned(), &operators::clearstack);
+
+        self.commands.insert("=".to_owned(), &operators_binary::equals);
+        self.commands.insert("!=".to_owned(), &operators_binary::not_equals);
+
     }
 
     fn eval_commands(&self, op: &str, forth: &mut Forth) -> Option<ForthResult<()>> {
