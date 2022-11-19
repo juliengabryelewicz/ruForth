@@ -322,4 +322,24 @@ mod tests {
         assert_eq!(vec, forth.get_stack());
     }
 
+    #[test]
+    fn test_greater() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(-1);
+        intr.eval(&mut forth, "4 2 >");
+        assert_eq!(vec, forth.get_stack());
+    }
+
+    #[test]
+    fn test_less() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(-1);
+        intr.eval(&mut forth, "2 4 <");
+        assert_eq!(vec, forth.get_stack());
+    }
+
 }

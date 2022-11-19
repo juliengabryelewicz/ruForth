@@ -26,3 +26,11 @@ pub fn equals(forth: &mut Forth) -> ForthResult<()> {
 pub fn not_equals(forth: &mut Forth) -> ForthResult<()> {
     binary_operator("=", |a, b| a != b, forth)
 }
+
+pub fn greater_than(forth: &mut Forth) -> ForthResult<()> {
+    binary_operator(">", |a, b| b > a, forth)
+}
+
+pub fn less_than(forth: &mut Forth) -> ForthResult<()> {
+    binary_operator("<", |a, b| b < a, forth)
+}

@@ -48,6 +48,8 @@ impl<'a> Interpreter<'a> {
 
         self.commands.insert("=".to_owned(), &operators_binary::equals);
         self.commands.insert("!=".to_owned(), &operators_binary::not_equals);
+        self.commands.insert(">".to_owned(), &operators_binary::greater_than);
+        self.commands.insert("<".to_owned(), &operators_binary::less_than);
 
     }
 
