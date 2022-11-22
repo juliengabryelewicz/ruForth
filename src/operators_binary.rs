@@ -34,3 +34,11 @@ pub fn greater_than(forth: &mut Forth) -> ForthResult<()> {
 pub fn less_than(forth: &mut Forth) -> ForthResult<()> {
     binary_operator("<", |a, b| b < a, forth)
 }
+
+pub fn greater_than_equals(forth: &mut Forth) -> ForthResult<()> {
+    binary_operator(">=", |a, b| b >= a, forth)
+}
+
+pub fn less_than_equals(forth: &mut Forth) -> ForthResult<()> {
+    binary_operator("<=", |a, b| b <= a, forth)
+}
