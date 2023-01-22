@@ -42,3 +42,9 @@ pub fn greater_than_equals(forth: &mut Forth) -> ForthResult<()> {
 pub fn less_than_equals(forth: &mut Forth) -> ForthResult<()> {
     binary_operator("<=", |a, b| b <= a, forth)
 }
+
+pub fn invert(forth: &mut Forth) -> ForthResult<()> {
+    let a = forth.pop("Empty stack for invert".to_string())?;
+    forth.push(if a == 0 { -1 } else { 0 });
+    Ok(())
+}

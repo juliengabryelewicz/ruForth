@@ -362,4 +362,14 @@ mod tests {
         assert_eq!(vec, forth.get_stack());
     }
 
+    #[test]
+    fn test_invert() {
+        let mut forth = forth::Forth::empty();
+        let intr = interpreter::Interpreter::new();
+        let mut vec = Vec::new();
+        vec.push(-1);
+        intr.eval(&mut forth, "0 invert");
+        assert_eq!(vec, forth.get_stack());
+    }
+
 }

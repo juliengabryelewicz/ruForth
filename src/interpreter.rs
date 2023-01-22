@@ -52,6 +52,7 @@ impl<'a> Interpreter<'a> {
         self.commands.insert("<".to_owned(), &operators_binary::less_than);
         self.commands.insert(">=".to_owned(), &operators_binary::greater_than_equals);
         self.commands.insert("<=".to_owned(), &operators_binary::less_than_equals);
+        self.commands.insert("invert".to_owned(), &operators_binary::invert);
 
     }
 
